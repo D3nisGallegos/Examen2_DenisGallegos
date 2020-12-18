@@ -13,12 +13,16 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jTabbedPane1.setEnabledAt(2, false);
+        updatelistaclientes();
     }
     
     public void updatelistaclientes(){
         DefaultListModel modelo = (DefaultListModel) jList1.getModel();
-        modelo.removeAllElements();
+        for (int j = 0; j < modelo.getSize();j++){
+            modelo.remove(j);
+        }
         AdminBinario ap = new AdminBinario("./popeyes.cbm");
+        ap.cargarArchivo();
         ArrayList lista = ap.getClientes();
         for (int c =0; c < lista.size();c++){
             Clientes cliente = (Clientes) lista.get(c);
@@ -134,8 +138,8 @@ public class Principal extends javax.swing.JFrame {
                                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 343, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 305, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,8 +168,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(18, 18, 18))
         );
@@ -265,7 +269,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,9 +291,9 @@ public class Principal extends javax.swing.JFrame {
             ap.cargarArchivo();
             ap.getClientes().add(cliente);
             ap.escribirArchivo();
-            updatelistaclientes();
             JOptionPane.showMessageDialog(null, "Cliente archivado correctamente.");
         }
+        updatelistaclientes();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -307,7 +311,6 @@ public class Principal extends javax.swing.JFrame {
                     }else {
                         cliente.setNombre(nombre);
                         cliente.setClave(clave);
-                        updatelistaclientes();
                         ap.escribirArchivo();
                         JOptionPane.showMessageDialog(null, "Cliente modificado correctamente.");
                     }
@@ -316,6 +319,7 @@ public class Principal extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Seleccione un cliente.");
         }
+        updatelistaclientes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -348,11 +352,11 @@ public class Principal extends javax.swing.JFrame {
             }
             ap.setClientes(lista);
             ap.escribirArchivo();
-            updatelistaclientes();
             JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente.");
         }else {
             JOptionPane.showMessageDialog(null, "Seleccione un cliente.");
         }
+        updatelistaclientes();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

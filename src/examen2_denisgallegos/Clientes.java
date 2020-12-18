@@ -2,10 +2,11 @@
  */
 package examen2_denisgallegos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Clientes {
+public class Clientes implements Serializable{
     
     private String nombre; 
     private String clave;
@@ -47,7 +48,7 @@ public class Clientes {
     //MA: 
     
     public String toStringClientes(){
-        return "Nombre: "+nombre+"Clave: "+clave;
+        return "Nombre: "+nombre;
     }
     
     

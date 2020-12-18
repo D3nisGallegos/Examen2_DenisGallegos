@@ -8,9 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AdminBinario {
+public class AdminBinario implements Serializable{
     
     private ArrayList clientes = new ArrayList();
     private File archivo = null;
@@ -47,7 +48,7 @@ public class AdminBinario {
                 try {
                     while ((temp = (Clientes) objeto.readObject()) != null) {
                         clientes.add(temp);
-                    }
+                    }                   
                 } catch (EOFException e) {
                     //encontro el final del archivo
                 }
@@ -65,8 +66,12 @@ public class AdminBinario {
         try {
             fw = new FileOutputStream(archivo);
             bw = new ObjectOutputStream(fw);
-            for (Object t : clientes) {
-                bw.writeObject(t);
+            //for (Object t : clientes) {
+                //bw.writeObject(t);
+            //}
+            for (int c =0; c < clientes.size();c++){
+                Clientes cliente = (Clientes) clientes.get(c);
+                bw.writeObject(cliente);
             }
             bw.flush();
         } catch (Exception ex) {
