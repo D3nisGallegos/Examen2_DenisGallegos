@@ -2,10 +2,11 @@
  */
 package examen2_denisgallegos;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Ordenes {
+public class Ordenes implements Serializable{
     
     private int idorden; 
     private int pollo; 
@@ -99,8 +100,8 @@ public class Ordenes {
     //MA: 
     
     public String toStringOrdenes(){
-        return "Orden: "+idorden+", Piezas: "+pollo+", Refrescos: "+refresco+", Papas: "+papas+"\n"+
-                ", Biscuits: "+biscuit+", Pure: "+pure+"Pie: "+pie;
+        return "Orden: "+idorden+", Piezas: "+pollo+", Refrescos: "+refresco+"\n"+
+                ", Papas: "+papas+", Biscuits: "+biscuit+", Pures: "+pure+"Pies: "+pie;
     }
     
     
