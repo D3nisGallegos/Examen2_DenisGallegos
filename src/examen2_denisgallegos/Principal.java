@@ -100,6 +100,8 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel16 = new javax.swing.JLabel();
+        jSpinner6 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -340,6 +342,9 @@ public class Principal extends javax.swing.JFrame {
 
         jProgressBar1.setBackground(new java.awt.Color(153, 255, 102));
 
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Pure:");
+
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
         panel3Layout.setHorizontalGroup(
@@ -349,7 +354,6 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton7)
                             .addComponent(jLabel8)
                             .addGroup(panel3Layout.createSequentialGroup()
                                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,14 +361,17 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel12)
-                                    .addComponent(jLabel13))
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton7)))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton6)))
@@ -412,7 +419,11 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addGap(17, 17, 17)
                         .addComponent(jButton7))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(jLabel14)
@@ -559,12 +570,31 @@ public class Principal extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int total = Integer.parseInt(jSpinner1.getValue()+"") + Integer.parseInt(jSpinner2.getValue()+"") +
         Integer.parseInt(jSpinner3.getValue()+"") + Integer.parseInt(jSpinner4.getValue()+"") +
-        Integer.parseInt(jSpinner5.getValue()+"") ;
+        Integer.parseInt(jSpinner5.getValue()+"") +  Integer.parseInt(jSpinner6.getValue()+"");
         if (total > 0){
-            
+            int pollo = Integer.parseInt(jSpinner1.getValue()+"");
+            int fresco = Integer.parseInt(jSpinner2.getValue()+"");
+            int biscuits = Integer.parseInt(jSpinner3.getValue()+"");
+            int papas = Integer.parseInt(jSpinner4.getValue()+"");
+            int pie = Integer.parseInt(jSpinner5.getValue()+"");
+            int pure = Integer.parseInt(jSpinner6.getValue()+"");
+            Ordenes orden = new Ordenes(pollo, biscuits, pure, papas, fresco, pie);
+            Hilobarra hilo = new Hilobarra(jProgressBar1, jTable1, orden);
+            Thread h = new Thread(hilo);
+            h.start();
+            AdminBinario ap = new AdminBinario("./popeyes.cbm");
+            ap.cargarArchivo();
+            for (int c = 0; c < ap.getClientes().size();c++){
+                Clientes cliente = (Clientes) ap.getClientes().get(c);
+                if (cliente == clienteactual){
+                    cliente.getOrdenes().add(orden);
+                }
+            }
+            ap.escribirArchivo();
         }else {
             JOptionPane.showMessageDialog(null, "No puede ingresar una orden sin elementos.");
         }
+        updatelistaordenes();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     
@@ -615,6 +645,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -636,6 +667,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JSpinner jSpinner5;
+    private javax.swing.JSpinner jSpinner6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
