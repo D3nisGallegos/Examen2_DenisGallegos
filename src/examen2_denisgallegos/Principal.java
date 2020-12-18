@@ -587,6 +587,7 @@ public class Principal extends javax.swing.JFrame {
             for (int c = 0; c < ap.getClientes().size();c++){
                 Clientes cliente = (Clientes) ap.getClientes().get(c);
                 if (cliente == clienteactual){
+                    System.out.println("entre");
                     cliente.getOrdenes().add(orden);
                 }
             }

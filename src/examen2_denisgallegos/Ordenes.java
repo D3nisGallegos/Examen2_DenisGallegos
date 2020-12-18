@@ -38,6 +38,16 @@ public class Ordenes {
     }
     
     //MUTADORES: 
+
+    public int getIdorden() {
+        return idorden;
+    }
+
+    public void setIdorden(int idorden) {
+        this.idorden = idorden;
+    }
+    
+    
     public int getPollo() {
         return pollo;
     }
