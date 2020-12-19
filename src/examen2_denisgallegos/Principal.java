@@ -2,6 +2,7 @@
  */
 package examen2_denisgallegos;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -50,6 +51,13 @@ public class Principal extends javax.swing.JFrame {
             }
         }
         jList2.setModel(modelo);
+        
+    }
+    
+    public void redactarfactura(int id, Ordenes orden, Clientes cliente) throws IOException{
+        AdminTexto as = new AdminTexto("./factura:"+id+".txt");
+        as.Escribirarchivo(orden, cliente);
+        JOptionPane.showMessageDialog(null, "Factura redactada.");
         
     }
 
@@ -213,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(18, 18, 18))
         );
@@ -278,7 +286,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addComponent(jButton4)
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Login Cliente", panel2);
@@ -309,6 +317,16 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Pie: ");
+
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jSpinner5.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         jButton7.setText("Procesar nueva orden");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -345,6 +363,8 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Pure:");
+
+        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Progreso por elemento:");
@@ -434,7 +454,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -560,7 +580,7 @@ public class Principal extends javax.swing.JFrame {
             }
         }
         if (v == false){
-            JOptionPane.showMessageDialog(null, "Nombre o clave incorrctos.");
+            JOptionPane.showMessageDialog(null, "Nombre o clave incorrectos.");
         }
         updatelistaordenes();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -595,9 +615,10 @@ public class Principal extends javax.swing.JFrame {
                 Clientes cliente = (Clientes) ap.getClientes().get(c);
                 if (cliente.toStringClientes().equals(clienteactual.toStringClientes())){
                     cliente.getOrdenes().add(orden);
+                    redactarfactura(orden.getIdorden(), orden, clienteactual);
                 }
             }
-            ap.escribirArchivo();
+            ap.escribirArchivo();           
         }else {
             JOptionPane.showMessageDialog(null, "No puede ingresar una orden sin elementos.");
         }
