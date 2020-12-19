@@ -34,22 +34,17 @@ public class AdminTexto {
         FileWriter escritor = null;
         BufferedWriter escritorenRAM = null;
         Date fecha = new Date();
-        SimpleDateFormat f = new SimpleDateFormat("F/MM/YYYY - hh:mm:ss");
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/YYYY - hh:mm:ss");
+        String n = f.format(fecha);
         try{
-            escritor = new FileWriter(archivo,false);
+            escritor = new FileWriter(archivo,true);
             escritorenRAM = new BufferedWriter(escritor);
-            //for (int c = 0; c < celulares.size();c++){
-                //Celular objeto = (Celular) celulares.get(c);
-                //escritorenRAM.write(objeto.getModelo()+ "|");
-               // escritorenRAM.write(objeto.getMarca()+ "|");
-               // escritorenRAM.write(objeto.getPrecio()+ "|");
-               // escritorenRAM.write(objeto.getHdd()+ "|");
-            //}
             escritorenRAM.write("FACTURA DE COMPRA: POPEYES");
             escritorenRAM.newLine();
-            escritorenRAM.write("Fecha: "+f.format(fecha)+"                         "+" ID de la orden: "+orden.getIdorden());
+            escritorenRAM.write("Fecha: "+n+"                         "+" ID de la orden: "+orden.getIdorden());
             escritorenRAM.newLine();
             escritorenRAM.write("DATOS DEL CLIENTE: ");
+            escritorenRAM.newLine();
             escritorenRAM.write("Nombre del cliente: "+cliente.getNombre());
             escritorenRAM.newLine();
             escritorenRAM.write("********************************* L I S T A D O: ***************************************");
@@ -69,7 +64,7 @@ public class AdminTexto {
             escritorenRAM.write("******************************************************************************************");
             escritorenRAM.newLine();
             escritorenRAM.flush();
-        }catch(Exception e){
+        }catch(Exception e){ 
             
         }
         escritorenRAM.close();

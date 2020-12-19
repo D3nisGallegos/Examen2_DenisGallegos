@@ -4,6 +4,8 @@ package examen2_denisgallegos;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -55,9 +57,9 @@ public class Principal extends javax.swing.JFrame {
     }
     
     public void redactarfactura(int id, Ordenes orden, Clientes cliente) throws IOException{
-        AdminTexto as = new AdminTexto("./factura:"+id+".txt");
+        String n = "./factura n"+id+".txt";
+        AdminTexto as = new AdminTexto(n);
         as.Escribirarchivo(orden, cliente);
-        JOptionPane.showMessageDialog(null, "Factura redactada.");
         
     }
 
@@ -615,7 +617,11 @@ public class Principal extends javax.swing.JFrame {
                 Clientes cliente = (Clientes) ap.getClientes().get(c);
                 if (cliente.toStringClientes().equals(clienteactual.toStringClientes())){
                     cliente.getOrdenes().add(orden);
-                    redactarfactura(orden.getIdorden(), orden, clienteactual);
+                    try {
+                        redactarfactura(orden.getIdorden(), orden, clienteactual);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
             ap.escribirArchivo();           

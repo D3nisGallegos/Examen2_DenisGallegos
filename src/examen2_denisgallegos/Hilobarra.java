@@ -147,7 +147,7 @@ public class Hilobarra implements Runnable{
                 barra.setValue(0);
         }
             barra.setValue(0);
-            JOptionPane.showMessageDialog(null, "Orden procesada exitosamente.");
+            JOptionPane.showMessageDialog(null, "Orden procesada exitosamente. Factura redactada.");
         
     }//Fin del hilo.
     
